@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/app
+
+hooks:
+  BeforeInstall:
+    - location: scripts/stop_old_container.sh
+      timeout: 300
+      runas: ubuntu
+  AfterInstall:
+    - location: scripts/start_new_container.sh
+      timeout: 300
+      runas: ubuntu
