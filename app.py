@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 TASKS_FILE = 'tasks.json'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://flaskuser:FlaskPass123!@flask-mariadb.cc9822ak4zd7.us-east-1.rds.amazonaws.com:3306/your_database_name'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://flaskuser:FlaskPass123!@flask-mariadb.cc9822ak4zd7.us-east-1.rds.amazonaws.com:3306/task_db'
 
 def load_tasks():
     if not os.path.exists(TASKS_FILE):
