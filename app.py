@@ -60,4 +60,5 @@ def delete_task(task_id):
     conn.close()
     return jsonify({"result": True})
 
-if
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
