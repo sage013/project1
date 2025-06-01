@@ -26,30 +26,30 @@ def get_tasks():
 
 @app.route('/tasks', methods=['POST'])
 def add_task():
-    if not request.json or 'task' not in request.json:
-        abort(400, description="Missing 'task' field")
-    task_text = request.json['task']
+    if not request.json or 'title' not in request.json:
+        abort(400, description="Missing 'title' field")
+    title_text = request.json['title']
     conn = get_db_connection()
     with conn.cursor() as cursor:
-        cursor.execute("INSERT INTO tasks (task, done) VALUES (%s, %s)", (task_text, False))
+        cursor.execute("INSERT INTO tasks (title, done) VALUES (%s, %s)", (title_text, False))
         conn.commit()
         task_id = cursor.lastrowid
     conn.close()
-    return jsonify({'id': task_id, 'task': task_text, 'done': False}), 201
+    return jsonify({'id': task_id, 'title': title_text, 'done': False}), 201
 
 @app.route('/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
     if not request.json:
         abort(400)
-    task_text = request.json.get('task')
+    title_text = request.json.get('title')
     done = request.json.get('done')
 
     conn = get_db_connection()
     with conn.cursor() as cursor:
-        cursor.execute("UPDATE tasks SET task = %s, done = %s WHERE id = %s", (task_text, done, task_id))
+        cursor.execute("UPDATE tasks SET title = %s, done = %s WHERE id = %s", (title_text, done, task_id))
         conn.commit()
     conn.close()
-    return jsonify({'id': task_id, 'task': task_text, 'done': done})
+    return jsonify({'id': task_id, 'title': title_text, 'done': done})
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
@@ -60,6 +60,4 @@ def delete_task(task_id):
     conn.close()
     return jsonify({"result": True})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-
+if
