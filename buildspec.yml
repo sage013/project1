@@ -3,7 +3,7 @@ env:
   parameter-store:
     AWS_REGION: "/build/project1/aws-region"
     ECR_URI: "/build/project1/ecr-uri"
-    REPO_NAME: "/build/project1/repo-name"
+    REPO_NAME: "/build/project1/image-name"
 phases:
   pre_build:
     commands:
