@@ -1,4 +1,4 @@
-version: 0.0
+version: 0.2
 os: linux
 files:
   - source: /
@@ -11,5 +11,9 @@ hooks:
       runas: ubuntu
   AfterInstall:
     - location: scripts/start_new_container.sh
+      timeout: 300
+      runas: ubuntu
+  ValidateService:
+    - location: scripts/validate.sh
       timeout: 300
       runas: ubuntu
