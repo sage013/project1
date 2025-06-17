@@ -1,21 +1,25 @@
 version: 0.2
-
+env:
+  parameter-store:
+    AWS_REGION: "/build/project1/aws-region"
+    ECR_URI: "/build/project1/ecr-uri"
+    REPO_NAME: "/build/project1/repo-name"
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 901903979633.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URI
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t sageprojects .
-      - docker tag sageprojects:latest 901903979633.dkr.ecr.us-east-1.amazonaws.com/sageprojects:latest
+      - docker tag sageprojects:latest $ECR_URI/$REPO_NAME:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 901903979633.dkr.ecr.us-east-1.amazonaws.com/sageprojects:latest
+      - docker push $ECR_URI/$REPO_NAME:latest
 
 artifacts:
   files:
